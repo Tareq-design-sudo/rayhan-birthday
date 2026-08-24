@@ -17,7 +17,6 @@ window.addEventListener("load", () => {
 
     }, 1000);
 
-
     createStars();
     createGallery();
 
@@ -33,27 +32,21 @@ function createStars() {
     const stars =
         document.getElementById("stars");
 
-
     for (let i = 0; i < 100; i++) {
 
         const star =
             document.createElement("div");
 
-
         star.className = "star";
-
 
         star.style.left =
             Math.random() * 100 + "vw";
 
-
         star.style.top =
             Math.random() * 100 + "vh";
 
-
         star.style.animationDelay =
             Math.random() * 3 + "s";
-
 
         stars.appendChild(star);
 
@@ -69,21 +62,23 @@ function createStars() {
 const gallery =
     document.getElementById("gallery");
 
-
 const galleryWrapper =
     document.getElementById("galleryWrapper");
 
-
 let currentImage = 0;
-
 
 const images = [];
 
 
-/* ======================================
-   30 PHOTOS
-   FIXED PATH
-====================================== */
+/*
+   IMPORTANT:
+   All gallery images are in root folder.
+   Example:
+   tareq-rayhan1.jpg
+   tareq-rayhan2.jpg
+   ...
+   tareq-rayhan30.jpg
+*/
 
 for (let i = 1; i <= 30; i++) {
 
@@ -105,28 +100,23 @@ function createGallery() {
         const card =
             document.createElement("div");
 
-
         card.className = "memory";
-
 
         const image =
             document.createElement("img");
 
-
         image.src = src;
-
 
         image.alt =
             `Tareq and Rayhan memory ${index + 1}`;
-
 
         image.loading = "lazy";
 
 
         image.onerror = () => {
 
-            console.log(
-                "Image not found:",
+            console.error(
+                "Gallery image not found:",
                 src
             );
 
@@ -164,7 +154,6 @@ document
 
         galleryWrapper.classList.add("show");
 
-
         setTimeout(() => {
 
             galleryWrapper.scrollIntoView({
@@ -184,10 +173,8 @@ document
 const viewer =
     document.getElementById("viewer");
 
-
 const viewerImage =
     document.getElementById("viewerImage");
-
 
 const viewerCaption =
     document.getElementById("viewerCaption");
@@ -198,10 +185,8 @@ function openViewer() {
     viewerImage.src =
         images[currentImage];
 
-
     viewerCaption.textContent =
         `MEMORY ${currentImage + 1}  •  TAREQ × RAYHAN`;
-
 
     viewer.classList.add("open");
 
@@ -237,13 +222,11 @@ document
 
         currentImage++;
 
-
         if (currentImage >= images.length) {
 
             currentImage = 0;
 
         }
-
 
         openViewer();
 
@@ -260,14 +243,12 @@ document
 
         currentImage--;
 
-
         if (currentImage < 0) {
 
             currentImage =
                 images.length - 1;
 
         }
-
 
         openViewer();
 
@@ -282,14 +263,11 @@ document.addEventListener(
     "keydown",
     event => {
 
-        if (
-            !viewer.classList.contains("open")
-        ) {
+        if (!viewer.classList.contains("open")) {
 
             return;
 
         }
-
 
         if (event.key === "ArrowRight") {
 
@@ -299,7 +277,6 @@ document.addEventListener(
 
         }
 
-
         if (event.key === "ArrowLeft") {
 
             document
@@ -307,7 +284,6 @@ document.addEventListener(
                 .click();
 
         }
-
 
         if (event.key === "Escape") {
 
@@ -331,10 +307,8 @@ document
             .classList
             .toggle("light");
 
-
         const btn =
             document.getElementById("themeBtn");
-
 
         if (
             document.body
@@ -399,69 +373,301 @@ document
 
 
 /* ======================================
-   MUSIC
+   MUSIC PLAYER
 ====================================== */
 
-document
-    .querySelectorAll("[data-audio]")
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                const audio =
-                    document.getElementById(
-                        button.dataset.audio
-                    );
+const audioButtons =
+    document.querySelectorAll("[data-audio]");
 
 
-                /* Stop other songs */
+audioButtons.forEach(button => {
+
+    button.addEventListener("click", async () => {
+
+        const audioId =
+            button.dataset.audio;
+
+        const audio =
+            document.getElementById(audioId);
+
+
+        if (!audio) {
+
+            console.error(
+                "Audio element not found:",
+                audioId
+            );
+
+            return;
+
+        }
+
+
+        /*
+           Stop every other audio
+        */
+
+        document
+            .querySelectorAll("audio")
+            .forEach(otherAudio => {
+
+                if (otherAudio !== audio) {
+
+                    otherAudio.pause();
+
+                    otherAudio.currentTime = 0;
+
+                }
+
+            });
+
+
+        /*
+           Reset all buttons
+        */
+
+        document
+            .querySelectorAll("[data-audio]")
+            .forEach(otherButton => {
+
+                if (otherButton !== button) {
+
+                    if (
+                        otherButton.dataset.audio ===
+                        "faitaAudio"
+                    ) {
+
+                        if (
+                            otherButton.classList
+                                .contains("music-btn")
+                        ) {
+
+                            otherButton.innerHTML =
+                                "▶ PLAY FAITA JAY";
+
+                        }
+
+                    } else {
+
+                        if (
+                            otherButton.classList
+                                .contains("music-btn")
+                        ) {
+
+                            otherButton.innerHTML =
+                                "▶ PLAY SONG";
+
+                        }
+
+                    }
+
+                }
+
+            });
+
+
+        /*
+           PLAY
+        */
+
+        if (audio.paused) {
+
+            try {
+
+                await audio.play();
+
+
+                /*
+                   Faita Jai
+                */
+
+                if (
+                    audioId === "faitaAudio"
+                ) {
+
+                    document
+                        .querySelectorAll(
+                            `[data-audio="faitaAudio"]`
+                        )
+                        .forEach(btn => {
+
+                            if (
+                                btn.classList
+                                    .contains("music-btn")
+                            ) {
+
+                                btn.innerHTML =
+                                    "❚❚ PAUSE FAITA JAY";
+
+                            }
+
+                        });
+
+                }
+
+
+                /*
+                   Tomake Chai
+                */
+
+                else {
+
+                    document
+                        .querySelectorAll(
+                            `[data-audio="tomakeAudio"]`
+                        )
+                        .forEach(btn => {
+
+                            if (
+                                btn.classList
+                                    .contains("music-btn")
+                            ) {
+
+                                btn.innerHTML =
+                                    "❚❚ PAUSE SONG";
+
+                            }
+
+                        });
+
+                }
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Audio playback error:",
+                    error
+                );
+
+                alert(
+                    "Song load korte problem hocche. " +
+                    "GitHub-e audio file path/name check koro."
+                );
+
+            }
+
+        }
+
+
+        /*
+           PAUSE
+        */
+
+        else {
+
+            audio.pause();
+
+
+            if (
+                audioId === "faitaAudio"
+            ) {
 
                 document
-                    .querySelectorAll("audio")
-                    .forEach(other => {
+                    .querySelectorAll(
+                        `[data-audio="faitaAudio"]`
+                    )
+                    .forEach(btn => {
 
-                        if (other !== audio) {
+                        if (
+                            btn.classList
+                                .contains("music-btn")
+                        ) {
 
-                            other.pause();
-
-                            other.currentTime = 0;
+                            btn.innerHTML =
+                                "▶ PLAY FAITA JAY";
 
                         }
 
                     });
 
+            }
 
-                if (audio.paused) {
+            else {
 
-                    audio.play();
+                document
+                    .querySelectorAll(
+                        `[data-audio="tomakeAudio"]`
+                    )
+                    .forEach(btn => {
+
+                        if (
+                            btn.classList
+                                .contains("music-btn")
+                        ) {
+
+                            btn.innerHTML =
+                                "▶ PLAY SONG";
+
+                        }
+
+                    });
+
+            }
+
+        }
+
+    });
+
+});
 
 
-                    if (
-                        button.classList
-                            .contains("music-btn")
-                    ) {
+/* ======================================
+   AUDIO ENDED
+====================================== */
 
-                        button.innerHTML =
-                            "❚❚ PAUSE SONG";
+document
+    .querySelectorAll("audio")
+    .forEach(audio => {
 
-                    }
+        audio.addEventListener(
+            "ended",
+            () => {
 
-                } else {
+                if (
+                    audio.id === "faitaAudio"
+                ) {
 
-                    audio.pause();
+                    document
+                        .querySelectorAll(
+                            `[data-audio="faitaAudio"]`
+                        )
+                        .forEach(btn => {
 
+                            if (
+                                btn.classList
+                                    .contains("music-btn")
+                            ) {
 
-                    if (
-                        button.classList
-                            .contains("music-btn")
-                    ) {
+                                btn.innerHTML =
+                                    "▶ PLAY FAITA JAY";
 
-                        button.innerHTML =
-                            "▶ PLAY SONG";
+                            }
 
-                    }
+                        });
+
+                }
+
+                else {
+
+                    document
+                        .querySelectorAll(
+                            `[data-audio="tomakeAudio"]`
+                        )
+                        .forEach(btn => {
+
+                            if (
+                                btn.classList
+                                    .contains("music-btn")
+                            ) {
+
+                                btn.innerHTML =
+                                    "▶ PLAY SONG";
+
+                            }
+
+                        });
 
                 }
 
@@ -509,22 +715,17 @@ function createConfetti() {
         piece.style.position =
             "fixed";
 
-
         piece.style.top =
             "-20px";
-
 
         piece.style.left =
             Math.random() * 100 + "vw";
 
-
         piece.style.width =
             "7px";
 
-
         piece.style.height =
             "12px";
-
 
         piece.style.background =
             colors[
@@ -534,10 +735,8 @@ function createConfetti() {
                 )
             ];
 
-
         piece.style.zIndex =
             "500";
-
 
         piece.style.pointerEvents =
             "none";
@@ -552,22 +751,18 @@ function createConfetti() {
             [
 
                 {
-
                     transform:
                         "translateY(0) rotate(0deg)",
 
                     opacity: 1
-
                 },
 
                 {
-
                     transform:
                         `translateY(110vh)
                          rotate(720deg)`,
 
                     opacity: .2
-
                 }
 
             ],
@@ -616,7 +811,6 @@ function fireworks() {
             const x =
                 15 + Math.random() * 70;
 
-
             const y =
                 15 + Math.random() * 50;
 
@@ -634,32 +828,25 @@ function fireworks() {
                 spark.style.position =
                     "fixed";
 
-
                 spark.style.left =
                     x + "vw";
-
 
                 spark.style.top =
                     y + "vh";
 
-
                 spark.style.width =
                     "4px";
-
 
                 spark.style.height =
                     "4px";
 
-
                 spark.style.borderRadius =
                     "50%";
-
 
                 spark.style.background =
                     i % 2 === 0
                         ? "#bd7cff"
                         : "#68e7ff";
-
 
                 spark.style.zIndex =
                     "600";
@@ -673,7 +860,6 @@ function fireworks() {
                 const angle =
                     Math.PI * 2 * i / 30;
 
-
                 const distance =
                     60 + Math.random() * 100;
 
@@ -683,12 +869,10 @@ function fireworks() {
                     [
 
                         {
-
                             transform:
                                 "translate(0,0)",
 
                             opacity: 1
-
                         },
 
                         {
