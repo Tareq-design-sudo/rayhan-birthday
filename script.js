@@ -3,7 +3,9 @@
 ====================================== */
 
 
-/* LOADER */
+/* ======================================
+   LOADER
+====================================== */
 
 window.addEventListener("load", () => {
 
@@ -15,12 +17,11 @@ window.addEventListener("load", () => {
 
     }, 1000);
 
-    createStars();
 
+    createStars();
     createGallery();
 
 });
-
 
 
 /* ======================================
@@ -61,7 +62,6 @@ function createStars() {
 }
 
 
-
 /* ======================================
    GALLERY
 ====================================== */
@@ -80,18 +80,23 @@ let currentImage = 0;
 const images = [];
 
 
-/* 30 PHOTOS */
+/* ======================================
+   30 PHOTOS
+   FIXED PATH
+====================================== */
 
 for (let i = 1; i <= 30; i++) {
 
     images.push(
-        `assets/gallery/tareq-rayhan${i}.jpg`
+        `tareq-rayhan${i}.jpg`
     );
 
 }
 
 
-/* CREATE GALLERY */
+/* ======================================
+   CREATE GALLERY
+====================================== */
 
 function createGallery() {
 
@@ -115,7 +120,15 @@ function createGallery() {
             `Tareq and Rayhan memory ${index + 1}`;
 
 
+        image.loading = "lazy";
+
+
         image.onerror = () => {
+
+            console.log(
+                "Image not found:",
+                src
+            );
 
             card.style.display = "none";
 
@@ -141,7 +154,6 @@ function createGallery() {
 }
 
 
-
 /* ======================================
    OPEN GALLERY
 ====================================== */
@@ -163,7 +175,6 @@ document
         }, 250);
 
     });
-
 
 
 /* ======================================
@@ -197,12 +208,16 @@ function openViewer() {
 }
 
 
-
-/* CLOSE */
+/* ======================================
+   CLOSE VIEWER
+====================================== */
 
 document
     .getElementById("viewerClose")
-    .addEventListener("click", closeViewer);
+    .addEventListener(
+        "click",
+        closeViewer
+    );
 
 
 function closeViewer() {
@@ -212,8 +227,9 @@ function closeViewer() {
 }
 
 
-
-/* NEXT */
+/* ======================================
+   NEXT IMAGE
+====================================== */
 
 document
     .getElementById("nextBtn")
@@ -221,25 +237,29 @@ document
 
         currentImage++;
 
+
         if (currentImage >= images.length) {
 
             currentImage = 0;
 
         }
 
+
         openViewer();
 
     });
 
 
-
-/* PREVIOUS */
+/* ======================================
+   PREVIOUS IMAGE
+====================================== */
 
 document
     .getElementById("prevBtn")
     .addEventListener("click", () => {
 
         currentImage--;
+
 
         if (currentImage < 0) {
 
@@ -248,47 +268,55 @@ document
 
         }
 
+
         openViewer();
 
     });
 
 
+/* ======================================
+   KEYBOARD
+====================================== */
 
-/* KEYBOARD */
+document.addEventListener(
+    "keydown",
+    event => {
 
-document.addEventListener("keydown", event => {
+        if (
+            !viewer.classList.contains("open")
+        ) {
 
-    if (!viewer.classList.contains("open")) {
-        return;
+            return;
+
+        }
+
+
+        if (event.key === "ArrowRight") {
+
+            document
+                .getElementById("nextBtn")
+                .click();
+
+        }
+
+
+        if (event.key === "ArrowLeft") {
+
+            document
+                .getElementById("prevBtn")
+                .click();
+
+        }
+
+
+        if (event.key === "Escape") {
+
+            closeViewer();
+
+        }
+
     }
-
-
-    if (event.key === "ArrowRight") {
-
-        document
-            .getElementById("nextBtn")
-            .click();
-
-    }
-
-
-    if (event.key === "ArrowLeft") {
-
-        document
-            .getElementById("prevBtn")
-            .click();
-
-    }
-
-
-    if (event.key === "Escape") {
-
-        closeViewer();
-
-    }
-
-});
-
+);
 
 
 /* ======================================
@@ -299,7 +327,9 @@ document
     .getElementById("themeBtn")
     .addEventListener("click", () => {
 
-        document.body.classList.toggle("light");
+        document.body
+            .classList
+            .toggle("light");
 
 
         const btn =
@@ -307,7 +337,9 @@ document
 
 
         if (
-            document.body.classList.contains("light")
+            document.body
+                .classList
+                .contains("light")
         ) {
 
             btn.textContent = "☾";
@@ -319,7 +351,6 @@ document
         }
 
     });
-
 
 
 /* ======================================
@@ -337,7 +368,6 @@ document
             });
 
     });
-
 
 
 /* ======================================
@@ -368,7 +398,6 @@ document
     });
 
 
-
 /* ======================================
    MUSIC
 ====================================== */
@@ -377,69 +406,69 @@ document
     .querySelectorAll("[data-audio]")
     .forEach(button => {
 
-        button.addEventListener("click", () => {
+        button.addEventListener(
+            "click",
+            () => {
 
-            const audio =
-                document.getElementById(
-                    button.dataset.audio
-                );
+                const audio =
+                    document.getElementById(
+                        button.dataset.audio
+                    );
 
 
-            /* Stop other songs */
+                /* Stop other songs */
 
-            document
-                .querySelectorAll("audio")
-                .forEach(other => {
+                document
+                    .querySelectorAll("audio")
+                    .forEach(other => {
 
-                    if (other !== audio) {
+                        if (other !== audio) {
 
-                        other.pause();
+                            other.pause();
 
-                        other.currentTime = 0;
+                            other.currentTime = 0;
+
+                        }
+
+                    });
+
+
+                if (audio.paused) {
+
+                    audio.play();
+
+
+                    if (
+                        button.classList
+                            .contains("music-btn")
+                    ) {
+
+                        button.innerHTML =
+                            "❚❚ PAUSE SONG";
 
                     }
 
-                });
+                } else {
+
+                    audio.pause();
 
 
-            if (audio.paused) {
+                    if (
+                        button.classList
+                            .contains("music-btn")
+                    ) {
 
-                audio.play();
+                        button.innerHTML =
+                            "▶ PLAY SONG";
 
-
-                if (
-                    button.classList.contains(
-                        "music-btn"
-                    )
-                ) {
-
-                    button.innerHTML =
-                        "❚❚ PAUSE SONG";
-
-                }
-
-            } else {
-
-                audio.pause();
-
-
-                if (
-                    button.classList.contains(
-                        "music-btn"
-                    )
-                ) {
-
-                    button.innerHTML =
-                        "▶ PLAY SONG";
+                    }
 
                 }
 
             }
-
-        });
+        );
 
     });
-
 
 
 /* ======================================
@@ -455,7 +484,6 @@ document
         fireworks();
 
     });
-
 
 
 /* ======================================
@@ -490,20 +518,25 @@ function createConfetti() {
             Math.random() * 100 + "vw";
 
 
-        piece.style.width = "7px";
+        piece.style.width =
+            "7px";
 
-        piece.style.height = "12px";
+
+        piece.style.height =
+            "12px";
 
 
         piece.style.background =
             colors[
                 Math.floor(
-                    Math.random() * colors.length
+                    Math.random() *
+                    colors.length
                 )
             ];
 
 
-        piece.style.zIndex = "500";
+        piece.style.zIndex =
+            "500";
 
 
         piece.style.pointerEvents =
@@ -519,6 +552,7 @@ function createConfetti() {
             [
 
                 {
+
                     transform:
                         "translateY(0) rotate(0deg)",
 
@@ -563,7 +597,6 @@ function createConfetti() {
     }
 
 }
-
 
 
 /* ======================================
@@ -650,6 +683,7 @@ function fireworks() {
                     [
 
                         {
+
                             transform:
                                 "translate(0,0)",
 
