@@ -1,0 +1,1671 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+:root {
+
+    --bg: #050509;
+    --bg2: #0b0910;
+
+    --card: rgba(255,255,255,.045);
+
+    --text: #f7f3ec;
+    --muted: #a7a2ad;
+
+    --purple: #bd7cff;
+    --blue: #68e7ff;
+    --gold: #f3c77a;
+
+    --border: rgba(255,255,255,.10);
+
+}
+
+
+body.light {
+
+    --bg: #f5f2f8;
+    --bg2: #eee8f5;
+
+    --card: rgba(255,255,255,.7);
+
+    --text: #17131c;
+    --muted: #67606d;
+
+    --purple: #8a49bd;
+    --blue: #168099;
+    --gold: #b37b20;
+
+    --border: rgba(20,10,30,.12);
+
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    color: var(--text);
+
+    font-family:
+        "Montserrat",
+        sans-serif;
+
+    background:
+
+        radial-gradient(
+            circle at 50% -15%,
+            #31203d,
+            transparent 40%
+        ),
+
+        radial-gradient(
+            circle at 100% 60%,
+            #17152c,
+            transparent 35%
+        ),
+
+        var(--bg);
+
+    overflow-x: hidden;
+
+    transition:
+        background .5s,
+        color .5s;
+
+}
+
+
+body.light {
+
+    background:
+
+        radial-gradient(
+            circle at 50% -10%,
+            #ead9f7,
+            transparent 45%
+        ),
+
+        var(--bg);
+
+}
+
+
+/* -------------------------
+   NAVBAR
+------------------------- */
+
+.navbar {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    z-index: 100;
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+    padding: 20px 6%;
+
+    background:
+        rgba(5,5,9,.35);
+
+    backdrop-filter:
+        blur(20px);
+
+    border-bottom:
+        1px solid var(--border);
+
+}
+
+
+.logo {
+
+    font-family: Cinzel, serif;
+
+    letter-spacing: 4px;
+
+    font-weight: 700;
+
+    font-size: 13px;
+
+}
+
+
+.logo span {
+
+    color: var(--purple);
+
+}
+
+
+.theme-btn {
+
+    width: 44px;
+    height: 44px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid var(--border);
+
+    background:
+        var(--card);
+
+    color:
+        var(--text);
+
+    cursor: pointer;
+
+}
+
+
+/* -------------------------
+   BACKGROUND
+------------------------- */
+
+.background-glow {
+
+    position: fixed;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    filter: blur(120px);
+
+    opacity: .12;
+
+    pointer-events: none;
+
+    z-index: -1;
+
+}
+
+
+.glow-one {
+
+    background: var(--purple);
+
+    top: 10%;
+    left: -250px;
+
+}
+
+
+.glow-two {
+
+    background: var(--blue);
+
+    right: -250px;
+    top: 50%;
+
+}
+
+
+.star {
+
+    position: fixed;
+
+    width: 2px;
+    height: 2px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    opacity: .4;
+
+    animation:
+        twinkle 3s infinite;
+
+}
+
+
+/* -------------------------
+   LOADER
+------------------------- */
+
+.loader {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: #050509;
+
+    z-index: 9999;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 20px;
+
+    transition: 1s;
+
+}
+
+
+.loader.hide {
+
+    opacity: 0;
+
+    pointer-events: none;
+
+}
+
+
+.loader-ring {
+
+    width: 65px;
+    height: 65px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid #29212f;
+
+    border-top:
+        2px solid var(--purple);
+
+    animation:
+        spin 1s linear infinite;
+
+}
+
+
+.loader p {
+
+    color: #888;
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+}
+
+
+/* -------------------------
+   HERO
+------------------------- */
+
+.hero {
+
+    min-height: 100vh;
+
+    padding:
+        150px 25px
+        100px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    position: relative;
+
+}
+
+
+.hero-text {
+
+    max-width: 900px;
+
+}
+
+
+.eyebrow {
+
+    color: var(--purple);
+
+    letter-spacing: 5px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+}
+
+
+.hero h1 {
+
+    font-family: Cinzel, serif;
+
+    font-size:
+        clamp(60px, 10vw, 125px);
+
+    line-height: .9;
+
+    margin-top: 25px;
+
+    letter-spacing: -3px;
+
+}
+
+
+.subtitle {
+
+    font-family: Cinzel, serif;
+
+    font-size:
+        clamp(25px, 4vw, 45px);
+
+    margin-top: 20px;
+
+}
+
+
+.rayhan-name {
+
+    margin-top: 20px;
+
+    font-size: 16px;
+
+    letter-spacing: 9px;
+
+    font-weight: 700;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--purple),
+            var(--blue)
+        );
+
+    -webkit-background-clip: text;
+
+    color: transparent;
+
+}
+
+
+.hero-text > p {
+
+    max-width: 600px;
+
+    margin: 25px auto;
+
+    color: var(--muted);
+
+    line-height: 1.8;
+
+}
+
+
+/* BUTTON */
+
+.premium-btn {
+
+    border: 1px solid
+        rgba(255,255,255,.15);
+
+    padding:
+        15px 28px;
+
+    border-radius: 100px;
+
+    background:
+        linear-gradient(
+            100deg,
+            var(--purple),
+            var(--blue)
+        );
+
+    color: #08070a;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .35s;
+
+}
+
+
+.premium-btn:hover {
+
+    transform:
+        translateY(-5px)
+        scale(1.02);
+
+    box-shadow:
+        0 20px 60px
+        rgba(170,120,255,.2);
+
+}
+
+
+/* HERO PORTRAIT */
+
+.hero-portrait {
+
+    width: 320px;
+    height: 320px;
+
+    margin-top: 60px;
+
+    display: grid;
+
+    place-items: center;
+
+    position: relative;
+
+}
+
+
+.portrait {
+
+    width: 220px;
+    height: 220px;
+
+    padding: 5px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--blue)
+        );
+
+    box-shadow:
+        0 0 100px
+        rgba(190,125,255,.2);
+
+    z-index: 3;
+
+}
+
+
+.portrait img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+}
+
+
+.portrait-ring {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(190,125,255,.35);
+
+}
+
+
+.ring-one {
+
+    width: 260px;
+    height: 260px;
+
+    animation:
+        spin 12s linear infinite;
+
+}
+
+
+.ring-two {
+
+    width: 310px;
+    height: 310px;
+
+    animation:
+        spin 18s linear infinite reverse;
+
+}
+
+
+.portrait-star {
+
+    position: absolute;
+
+    color: var(--blue);
+
+    font-size: 25px;
+
+    z-index: 5;
+
+}
+
+
+.star-a {
+
+    right: 0;
+    top: 35px;
+
+    animation:
+        float 3s infinite;
+
+}
+
+
+.star-b {
+
+    left: 5px;
+    bottom: 40px;
+
+    color: var(--purple);
+
+    animation:
+        float 4s infinite reverse;
+
+}
+
+
+.scroll-indicator {
+
+    margin-top: 60px;
+
+    color: #777;
+
+    font-size: 9px;
+
+    letter-spacing: 4px;
+
+}
+
+
+.scroll-indicator span {
+
+    display: block;
+
+    font-size: 20px;
+
+    margin-top: 10px;
+
+    animation:
+        bounce 2s infinite;
+
+}
+
+
+/* -------------------------
+   SECTION
+------------------------- */
+
+.section {
+
+    max-width: 1150px;
+
+    margin: auto;
+
+    padding:
+        130px 25px;
+
+}
+
+
+.section-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    margin-bottom: 50px;
+
+}
+
+
+.section-number {
+
+    color: var(--purple);
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+}
+
+
+.section-heading span {
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+
+    color: var(--purple);
+
+}
+
+
+.section-heading h2 {
+
+    font-family: Cinzel, serif;
+
+    font-size:
+        clamp(35px, 5vw, 60px);
+
+}
+
+
+/* -------------------------
+   STORY
+------------------------- */
+
+.story-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+}
+
+
+.story-card {
+
+    min-height: 300px;
+
+    padding: 35px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--card),
+            transparent
+        );
+
+    border:
+        1px solid var(--border);
+
+    backdrop-filter:
+        blur(15px);
+
+    transition: .4s;
+
+}
+
+
+.story-card:hover {
+
+    transform:
+        translateY(-10px);
+
+    border-color:
+        rgba(190,125,255,.35);
+
+}
+
+
+.story-icon {
+
+    width: 45px;
+    height: 45px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 50%;
+
+    border:
+        1px solid var(--border);
+
+    color: var(--purple);
+
+    margin-bottom: 35px;
+
+}
+
+
+.story-card > span {
+
+    font-size: 9px;
+
+    letter-spacing: 4px;
+
+    color: var(--purple);
+
+}
+
+
+.story-card h3 {
+
+    font-family: Cinzel, serif;
+
+    font-size: 25px;
+
+    margin: 12px 0 15px;
+
+}
+
+
+.story-card p {
+
+    color: var(--muted);
+
+    line-height: 1.8;
+
+    font-size: 14px;
+
+}
+
+
+/* -------------------------
+   MEMORY GALLERY
+------------------------- */
+
+.memory-intro {
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+    padding: 30px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 20px;
+
+    background:
+        var(--card);
+
+    margin-bottom: 25px;
+
+}
+
+
+.memory-intro p {
+
+    color: var(--muted);
+
+}
+
+
+.gallery-open-btn {
+
+    border:
+        1px solid
+        rgba(190,125,255,.3);
+
+    padding:
+        13px 20px;
+
+    border-radius: 50px;
+
+    background:
+        rgba(190,125,255,.08);
+
+    color: var(--text);
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+
+    transition: .3s;
+
+}
+
+
+.gallery-open-btn:hover {
+
+    background:
+        rgba(190,125,255,.18);
+
+    transform:
+        translateY(-3px);
+
+}
+
+
+.gallery-wrapper {
+
+    display: none;
+
+    opacity: 0;
+
+}
+
+
+.gallery-wrapper.show {
+
+    display: block;
+
+    animation:
+        galleryReveal 1s forwards;
+
+}
+
+
+.gallery-grid {
+
+    columns: 4 220px;
+
+    column-gap: 14px;
+
+}
+
+
+.memory {
+
+    display: inline-block;
+
+    width: 100%;
+
+    margin-bottom: 14px;
+
+    overflow: hidden;
+
+    border-radius: 18px;
+
+    cursor: pointer;
+
+    position: relative;
+
+    background: var(--card);
+
+    border:
+        1px solid var(--border);
+
+}
+
+
+.memory img {
+
+    width: 100%;
+
+    display: block;
+
+    transition:
+        transform .7s,
+        filter .7s;
+
+}
+
+
+.memory:hover img {
+
+    transform: scale(1.07);
+
+    filter:
+        brightness(.75);
+
+}
+
+
+.memory::after {
+
+    content: "VIEW ✦";
+
+    position: absolute;
+
+    inset: 0;
+
+    display: grid;
+
+    place-items: center;
+
+    color: white;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    background:
+        rgba(0,0,0,.25);
+
+    opacity: 0;
+
+    transition: .4s;
+
+}
+
+
+.memory:hover::after {
+
+    opacity: 1;
+
+}
+
+
+/* -------------------------
+   COUPLE
+------------------------- */
+
+.couple-card,
+.song-card {
+
+    display: grid;
+
+    grid-template-columns:
+        1.1fr 1fr;
+
+    overflow: hidden;
+
+    border-radius: 28px;
+
+    border:
+        1px solid var(--border);
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--card),
+            transparent
+        );
+
+}
+
+
+.couple-photo {
+
+    min-height: 470px;
+
+    position: relative;
+
+    overflow: hidden;
+
+}
+
+
+.couple-photo img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: .8s;
+
+}
+
+
+.couple-photo:hover img {
+
+    transform: scale(1.05);
+
+}
+
+
+.photo-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            transparent 50%,
+            rgba(0,0,0,.7)
+        );
+
+}
+
+
+.image-view-btn {
+
+    position: absolute;
+
+    left: 25px;
+    bottom: 25px;
+
+    border: none;
+
+    border-radius: 50px;
+
+    padding: 13px 20px;
+
+    background: white;
+
+    color: #111;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+}
+
+
+.couple-info,
+.song-info {
+
+    padding: 55px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+}
+
+
+.couple-info > span,
+.song-info > span {
+
+    color: var(--purple);
+
+    font-size: 9px;
+
+    letter-spacing: 4px;
+
+}
+
+
+.couple-info h3,
+.song-info h3 {
+
+    font-family: Cinzel, serif;
+
+    font-size: 38px;
+
+    margin: 15px 0;
+
+}
+
+
+.couple-info p,
+.song-info p {
+
+    color: var(--muted);
+
+    line-height: 1.8;
+
+}
+
+
+.music-btn {
+
+    align-self: flex-start;
+
+    margin-top: 25px;
+
+    padding:
+        13px 20px;
+
+    border: none;
+
+    border-radius: 50px;
+
+    background:
+        linear-gradient(
+            100deg,
+            var(--purple),
+            var(--blue)
+        );
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+}
+
+
+/* -------------------------
+   SONG
+------------------------- */
+
+.album-cover {
+
+    min-height: 400px;
+
+    position: relative;
+
+}
+
+
+.album-cover img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+
+.big-play {
+
+    position: absolute;
+
+    width: 80px;
+    height: 80px;
+
+    border-radius: 50%;
+
+    border: none;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    background:
+        rgba(255,255,255,.9);
+
+    color: #111;
+
+    font-size: 25px;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+}
+
+
+.big-play:hover {
+
+    transform:
+        translate(-50%, -50%)
+        scale(1.1);
+
+}
+
+
+/* -------------------------
+   FINAL
+------------------------- */
+
+.final-section {
+
+    min-height: 90vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 100px 20px;
+
+    position: relative;
+
+}
+
+
+.final-section h2 {
+
+    font-family: Cinzel, serif;
+
+    font-size:
+        clamp(50px, 9vw, 110px);
+
+    margin-top: 20px;
+
+}
+
+
+.final-section h3 {
+
+    font-family: Cinzel, serif;
+
+    font-size:
+        clamp(25px, 5vw, 55px);
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--purple),
+            var(--blue)
+        );
+
+    -webkit-background-clip: text;
+
+    color: transparent;
+
+}
+
+
+.final-section p {
+
+    max-width: 650px;
+
+    color: var(--muted);
+
+    line-height: 1.9;
+
+    margin:
+        25px 0 30px;
+
+}
+
+
+/* -------------------------
+   FOOTER
+------------------------- */
+
+footer {
+
+    padding: 40px;
+
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    border-top:
+        1px solid var(--border);
+
+}
+
+
+footer span {
+
+    color: var(--purple);
+
+}
+
+
+/* -------------------------
+   IMAGE VIEWER
+------------------------- */
+
+.viewer {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    background:
+        rgba(2,2,5,.94);
+
+    backdrop-filter:
+        blur(20px);
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.viewer.open {
+
+    display: flex;
+
+    animation:
+        viewerIn .4s;
+
+}
+
+
+.viewer-content {
+
+    text-align: center;
+
+}
+
+
+.viewer-content img {
+
+    max-width:
+        min(80vw, 1000px);
+
+    max-height: 78vh;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 30px 100px
+        rgba(0,0,0,.6);
+
+}
+
+
+.viewer-content div {
+
+    color: #aaa;
+
+    margin-top: 15px;
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+}
+
+
+.viewer-close,
+.viewer-prev,
+.viewer-next {
+
+    position: absolute;
+
+    border: none;
+
+    background:
+        rgba(255,255,255,.08);
+
+    color: white;
+
+    cursor: pointer;
+
+    border-radius: 50%;
+
+}
+
+
+.viewer-close {
+
+    top: 25px;
+    right: 30px;
+
+    width: 50px;
+    height: 50px;
+
+    font-size: 30px;
+
+}
+
+
+.viewer-prev,
+.viewer-next {
+
+    width: 55px;
+    height: 55px;
+
+    font-size: 35px;
+
+}
+
+
+.viewer-prev {
+
+    left: 30px;
+
+}
+
+
+.viewer-next {
+
+    right: 30px;
+
+}
+
+
+/* COUPLE VIEWER */
+
+.couple-reveal {
+
+    text-align: center;
+
+}
+
+
+.couple-reveal img {
+
+    max-width: 80vw;
+
+    max-height: 70vh;
+
+    border-radius: 20px;
+
+}
+
+
+.couple-reveal h3 {
+
+    font-family: Cinzel, serif;
+
+    font-size: 35px;
+
+    margin-top: 20px;
+
+    color: white;
+
+}
+
+
+.couple-reveal p {
+
+    color: #aaa;
+
+}
+
+
+/* -------------------------
+   ANIMATION
+------------------------- */
+
+@keyframes spin {
+
+    to {
+        transform:
+            rotate(360deg);
+    }
+
+}
+
+
+@keyframes float {
+
+    50% {
+        transform:
+            translateY(-15px)
+            rotate(10deg);
+    }
+
+}
+
+
+@keyframes bounce {
+
+    50% {
+        transform:
+            translateY(8px);
+    }
+
+}
+
+
+@keyframes twinkle {
+
+    50% {
+        opacity: .1;
+    }
+
+}
+
+
+@keyframes galleryReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(40px)
+            scale(.98);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+@keyframes viewerIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(.95);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1);
+
+    }
+
+}
+
+
+/* -------------------------
+   MOBILE
+------------------------- */
+
+@media(max-width:850px) {
+
+    .story-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .couple-card,
+    .song-card {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .couple-photo,
+    .album-cover {
+
+        min-height: 350px;
+
+    }
+
+
+    .gallery-grid {
+
+        columns: 3 150px;
+
+    }
+
+}
+
+
+@media(max-width:550px) {
+
+    .hero h1 {
+
+        font-size: 55px;
+
+    }
+
+
+    .rayhan-name {
+
+        letter-spacing: 4px;
+
+    }
+
+
+    .memory-intro {
+
+        flex-direction: column;
+
+        gap: 20px;
+
+        align-items: flex-start;
+
+    }
+
+
+    .gallery-grid {
+
+        columns: 2 120px;
+
+    }
+
+
+    .couple-info,
+    .song-info {
+
+        padding: 30px;
+
+    }
+
+
+    .viewer-prev {
+
+        left: 10px;
+
+    }
+
+
+    .viewer-next {
+
+        right: 10px;
+
+    }
+
+
+    .viewer-content img {
+
+        max-width: 85vw;
+
+    }
+
+}
